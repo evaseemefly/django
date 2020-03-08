@@ -162,6 +162,7 @@ def call_command(command_name, *args, **options):
 
 class ManagementUtility:
     """
+    封装了django-admin和management .py实用程序的逻辑。
     Encapsulate the logic of the django-admin and manage.py utilities.
     """
     def __init__(self, argv=None):
@@ -312,6 +313,7 @@ class ManagementUtility:
 
     def execute(self):
         """
+        TODO:[-] 20-02-12 由入口函数调用的
         Given the command-line arguments, figure out which subcommand is being
         run, create a parser appropriate to that command, and run it.
         """
@@ -329,6 +331,7 @@ class ManagementUtility:
         parser.add_argument('args', nargs='*')  # catch-all
         try:
             options, args = parser.parse_known_args(self.argv[2:])
+            # 设置系统参数添加至 os.environ
             handle_default_options(options)
         except CommandError:
             pass  # Ignore any option errors at this point.
@@ -388,6 +391,8 @@ class ManagementUtility:
 
 
 def execute_from_command_line(argv=None):
-    """Run a ManagementUtility."""
+    """Run a ManagementUtility.
+        TODO:[-] 入口函数
+    """
     utility = ManagementUtility(argv)
     utility.execute()
